@@ -1,0 +1,12 @@
+#+title: Definitions
+
+* Formal Definitions
+- allow one to reason about programs clearly and precisely
+- standardizations and discipline
+
+  syntax: grammer of the PL
+
+  semantics: the execution of the pl constructs
+
+** Syntax
+PLs constructed of tokens

@@ -1,0 +1,22 @@
+#+title: Comp 173 Spring 2022: Lab 01
+#+author: Ethan Coe-Renner
+
+1. 
+    #+begin_src text
+    [ethan@rocinante /home/ethan]% date                                                              13:49:03
+    Fri Jan 21 01:49:05 PM PST 2022
+    [ethan@rocinante /home/ethan]% time                                                              13:49:05
+    shell  0.30s user 0.11s system 8% cpu 4.930 total
+    children  0.05s user 0.05s system 2% cpu 4.930 total
+    #+end_src
+2. N/A
+3. PID, USER, PRI, NI, VIRT, RES, SHR, S, CPU%, MEM%, TIME+, COMMAND
+   [[./lab01-fig1.png]]
+4. N/A
+5. 3746 ethan     20   0 3763896 432900 221352 S   3.0   2.7   9:46.97
+6. 3746 ethan     20   0 3805140 465148 228060 D  59.1   2.9   9:53.49 GeckoMain
+7. Qbittorrent
+8. The performance of the process increases when it has a higher priority, it is given more system resources.
+9. kill will kill (end, stop) the process that is selected. htop doesnt give more options beyond that.
+10. the firefox window closes, and the process disappeared from htop.
+   

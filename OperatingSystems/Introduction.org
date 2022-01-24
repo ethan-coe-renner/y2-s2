@@ -1,0 +1,9 @@
+#+title: Introduction
+
+* Process Management
+A process is a program in execution. programs are passive, processes are active
+
+processes need resources like cpu, memory, i/o, and files to accomplish its task
+
+single-threaded processes have a program counter to specify the location of the next instruction
+

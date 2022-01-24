@@ -1,0 +1,31 @@
+#+title: Graph Theory Notes
+
+consider two sequences (1) S, t_1, t_2, ...,t_s, d_1, ..., d_n and (2) t_1-1, t_2-1,..., t_s-1, d_1,...,d_n
+
+(1) is graphic iff (2) is graphic
+
+* Isomorphic
+two graphs G_1 and G_2 are isomorphic if the vertices of G_1 and G_2 can be labeled with the numbers 1 to p (same number of vertices) such that whenever vertex i is adjacent to vertex j in G_1 then they are adjacent in G_2 and conversely.
+
+list out edges in the graphs and confirm that the lists are the same
+
+have the same subgraphs
+
+* Complete Graph
+every vertice is adjacent to every other vertice.
+
+with n vertices the graph will have $\frac{n(n-1)}{2}$ edges
+
+
+* Paths
+each vertex has two edges, linking the vertices in a chain
+
+* Cycles
+path where last vertex connects back to first
+
+* Subgraph
+subgraph of G consists of a subset of vertices of G and a subset of edges of G
+
+edges must connect vertices
+
+every graph is a subgraph of itself

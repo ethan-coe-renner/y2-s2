@@ -1,0 +1,47 @@
+#+title: Matrices
+
+An m x n matrix is a rectangular array (of numbers) with m rows and n columns.
+
+An m x 1 matrix is a (column) vector
+
+A 1 x n matrix is a (row) vector.
+
+R = set of real numbers
+
+R^2 = cartesian plane, set of all ordered pairs (x,y) of real numbers x and y = {(x,y)|x, y \in R}
+
+R^n = {(x_1,x_2,...,x_n)| x_1,x_2,...,x_n \in R} = vector space of vectors of length n.
+
+* matrix operations
+addition / subtraction: 2 matrices of the same size can be added or subtracted, elementwise
+
+zero matrix: matrix of all zeroes
+
+Identity matrix: n x n matrix with ones along main diagonal and zeroes elsewhere
+
+scalar multiplication: cA where c is a scalar and A is a matrix, multiply each element in A by c.
+
+* Gaussian Elimination
+find all points (x,y) where the 2 lines 2x-y=4 and x+y=2
+
+
+may perform 3 types of elementary row operations (EROs) without changing the solutions
+
+1. swap two rows
+2. multiply any row by a nonzero number
+3. add to any row any scalar multiple of another row
+
+Th. Every matrix is row equevalent to a unique matrix in Reduced Row Echelon Form (RREF)
+
+1. The nonzero rows are at the top
+2. the leading entries of each row move to the right as we move down the rows
+3. each leading entry is 1
+4. any column that contains a leading 1 (pivot column) contains all 0s above and below that 1
+
+** RREF algorithm
+1. find first nonzero column. swap rows to make top entry of this column nonzero.
+2. Scale row to make leading entry 1
+3. use EROs to make all other entries below the leading 1 equal 0
+4. ignoring rows with a leading 1 already, repeat steps 1 through 3 until there are no more nonzero rows.
+5. use EROs to eliminate entries above leaading ones.
+   

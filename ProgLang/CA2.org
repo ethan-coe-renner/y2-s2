@@ -1,0 +1,17 @@
+#+title: CA2
+#+author: Ethan Coe-Renner and Thomas Lau
+
+* GCC
+
+1. ~gcc source.c~
+2. ~gcc -c source.c~
+3. ~gcc source.o~
+4. ~gcc -S source.c~
+5. ~gcc -c source.s~
+
+* Java
+1. ~javac~
+2. ~javac ClassName.java~
+3. ~.class~
+4. ~java~
+5. ~java ClassName~

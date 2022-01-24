@@ -1,0 +1,11 @@
+#+title: COMP 141 CA 3
+#+author: Ethan Coe-Renner and Thomas Lau
+
+* Commenting in C
+- Reabability: ~//~ is preferred because a reader can locally tell if a line of code is commented. This is because every commented line has the double slash.
+- Writability: ~/* ... */~ is preferred because the programmer only has to modify two lines to comment out a large chunk of text.
+- Reliability: ~/* ... */~ is probably more reliable because with ~//~ any one of the double slashes could be removed and break the comment. With slash asterisk, only two lines are fragile in that way.
+* Explicitly-typed vs implicitly-typed PLs
+- Syntax conciseness: Implicitly typed languages are more concise because they have less code required. Variables do not require type annotations and so code is necessarily more concise.
+- Maintainability: Explicitly typed languges are more maintainable because they are easier to debug because the compiler gives more rich error messages and the compiler stops the programmer from running code with illogical types.
+- Expressiveness: Implicitly typed languages are probably more expressive because the programmer doesn't need to explicitly detail the types of every variable
