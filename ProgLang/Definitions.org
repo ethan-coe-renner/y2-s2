@@ -10,3 +10,6 @@
 
 ** Syntax
 PLs constructed of tokens
+
+* Regularity
+minimize programs with unforeseen behavior

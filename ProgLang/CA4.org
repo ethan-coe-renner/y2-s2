@@ -1,0 +1,13 @@
+#+title: COMP 141 CA 4
+
+* Semantic Safety in C++ vs Java
+1. Prints out ~3\n0~
+2. Prints out ~3\n~ then gives an ArrayIndexOutOfBoundsException. 
+3. Java is safer because it warns the user that they are accessing an inaccesible array index, while cpp just accesses the memory, even though it hasn't been allocated.
+* Extensions
+1. Python seems to have a new major version about every year, a trend since 2018.
+2. Java gets a new major release every few years, the last few were in 2014, 2017, and 2018
+3. Haskell has not had a major update since 2010, 12 years after the previous update in 1998.
+4. ML has frequent patch releases (3 in 2021), but has not had a major release since prior to 2003p.
+
+   
