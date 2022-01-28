@@ -45,3 +45,26 @@ Th. Every matrix is row equevalent to a unique matrix in Reduced Row Echelon For
 4. ignoring rows with a leading 1 already, repeat steps 1 through 3 until there are no more nonzero rows.
 5. use EROs to eliminate entries above leaading ones.
    
+* Systems of Linear Equations
+** Generalities
+A system of m linear equations in n unknowns x_1, x_2, ... x_n has the form
+
+x_11 x_1 + a_12 x_2 + ... + a_1n x_n = b_1
+...
+a_m1 x_1 + a_m2 x_2 + ... + a_mn x_n = b_n
+
+or $\sum_{j=1}^{n}(a_{ij}x_{j}) = b_i$ for 1 \le i \le m
+
+** Solving the System I
+
+1. write down augmented matrix
+2. row reduce to RREF
+3. convert back to (simpler) system and solve
+
+** Solving the System II
+A system does not always have a unique solution
+
+Consider a system AX=B of m equations in n unknowns. The solution space is the set of all solutions X in R^n = {(col vecs) \in R^n | $\sum_{j=1}^{n}(a_{ij}x_{j}) = b_i$ for 1 \le i \le m}
+
+2 systems are equivelent if they have the same solution space
+   
