@@ -1,0 +1,29 @@
+#+title: Operating System Structures
+
+* System Calls
+programming interface to the services provided by the OS, typically written in C or Cpp
+
+Most accessed by programs via high level api, not direct system calls
+
+win32 for windows, posix for unix and unix like systems, and Java api for jvm
+
+apis are portable and easier to use
+
+** types of system calls
+Process control: end, abort, load, execute, create process, terminate process, get/set process attributes
+
+File management: create/delete file, etc
+
+* Discussion
+** Question
+What is the purpose of system calls?
+
+Have you used any system calls? If yes, please list some of them.
+
+Why is the separation of mechanism and policy desirable?
+
+** Answer
+System calls allow programs/users to interact with low level operating system services.
+I have not used any system calls directly, however I interact with the API all the time when I create files, modify files, and delete them.
+
+seperation of mechanism and policy makes it easier to use, and maintain.

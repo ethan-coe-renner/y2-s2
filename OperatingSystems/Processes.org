@@ -1,0 +1,45 @@
+#+title: Processes
+#+author: Ethan Coe-Renner
+
+an operating system executes a variety of programs
+- batch system (i.e. supercomputer): jobs
+- time shared systems (i.e. laptop): user programs or tasks
+
+* Process: a program in execution
+includes:
+- program counter
+  points to the instruction to be executed, in the binary file
+- stack
+- data section
+
+* Process Stateful
+as a new process executes, it changes statae
+- new: process being created
+- running: instructions are being executed
+- waiting: process is waiting for some event to occur
+- ready: process is waiting to be assigned to a processor
+- terminated: the process has finished execution
+
+* Process representation in linux
+represented by c structure task_struct
+t
+  
+* Scheduling
+** long term scheduler
+which process should be brought into ready queue
+
+invoked infrequently, may be slow
+
+** short term scheduler
+selects which process should be executed next and allocates cpu
+
+invoked very frequently, must be fast
+* Process creation
+parent processes create children processes, form tree of processes
+
+resource sharing options
+1. parent and child share resources
+2. children share subset of parents resources
+3. parent and child share no resources
+
+  
