@@ -13,3 +13,32 @@ PLs constructed of tokens
 
 * Regularity
 minimize programs with unforeseen behavior
+
+* Scanner
+defined by lexical structure
+
+uses regular expressions
+
+** longest substring
+scanner builds tokens from the longest possible substring of non-whitespace characters
+
+solves ambiguity
+
+delimiters are whitespaces
+
+* Parser
+defined by syntactic structure
+
+syntax defined by a grammer
+
+* Lexics
+Syntacs vs Semantics
+
+Syntax is the structure
+
+semantics is the meaning
+
+* Scanner
+use regexes for simplicity
+
+[0-9]+ 

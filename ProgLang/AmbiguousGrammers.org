@@ -1,0 +1,16 @@
+#+title: Ambiguous Grammers
+#+author: Ethan Coe-Renner
+
+A grammer is ambiguous if there are two distinct parse trees for a given sentence.
+
+Ambiguity is a problem because it implies different precedence and different associativity properties for operators.
+
+right associativity: 3 + (4+5)
+left associativity: (3+4)+5
+
+* solutions
+revise the grammer rules
+
+state a disambiguating rule
+
+precedence cascade

@@ -92,22 +92,22 @@ int main(void)
         /* setup() calls exit() when Control-D is entered */
         setup(inputBuffer, args, &background);
 
-        pid = fork();
+        pid = fork(); // forks the process into two separate processes
 
-        if(pid == 0) {
-            execvp(args[0],args);
-            break;
+        if(pid == 0) { // checks if this is the child process
+            execvp(args[0],args); // if this is the child, it will run the inputted command
+            exit(0); // exits out because this is the child
         }
-        else if (background == 0) {
-            wait(NULL);
+        else if (background == 0) { // checks if this should be run in the background
+            wait(NULL); // if not in background, parent waits for child to complete before continuing
         }
 
 
         /** the steps are:
-        (1) fork a child process using fork()
-        (2) the child process will invoke execvp()
-        (3) if background == 0, the parent will wait,
-        otherwise it will continue to the next iteration. */
+            (1) fork a child process using fork()
+            (2) the child process will invoke execvp()
+            (3) if background == 0, the parent will wait,
+            otherwise it will continue to the next iteration. */
     }
 }
 

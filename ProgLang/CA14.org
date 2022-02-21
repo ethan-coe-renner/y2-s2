@@ -1,0 +1,33 @@
+#+title: CA 14
+#+author: Ethan Coe-Renner
+
+1. 
+   1. 
+       #+begin_src haskell
+         [5,10..195]
+       #+end_src
+   2. 
+       #+begin_src haskell
+         [299,297..251]
+       #+end_src
+2. 
+   1. 
+       #+begin_src haskell
+         [i*5|i<-[1..39]]
+       #+end_src
+   2. 
+       #+begin_src haskell
+         [i*2-1|i<-[126..150]]
+       #+end_src
+3. 
+    #+begin_src haskell
+      divisors x = [i| i <- [1..x], mod x i == 0]
+    #+end_src
+4. 
+    #+begin_src haskell
+      commonDiv x y = [i|i<- divisors x, i `elem` (divisors y)]
+    #+end_src
+5.
+   #+begin_src haskell
+     greatestCommonDiv x y = last (commonDiv x y)
+   #+end_src

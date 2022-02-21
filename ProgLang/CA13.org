@@ -1,0 +1,33 @@
+#+title: CA13
+#+author: Ethan Coe-Renner
+
+1. 
+   1. 
+       #+begin_src haskell
+         second xs = xs !! 1
+       #+end_src
+   2. 
+       #+begin_src haskell
+         second xs = head (tail xs)
+       #+end_src
+2. 
+   1. 
+       #+begin_src haskell
+         secondFromLast xs = xs !! ((length xs) - 2)
+       #+end_src
+   2. 
+       #+begin_src haskell
+         secondFromLast xs = last (init xs)
+       #+end_src
+3. 
+    #+begin_src haskell
+      secondHalf xs = drop (div (length xs) 2) xs
+    #+end_src
+4. 
+    #+begin_src haskell
+      index i xs = last (take (i+1) xs)
+    #+end_src
+5.
+   #+begin_src haskell
+     trimList xs = drop 1 (take (length xs- 1) xs)
+   #+end_src

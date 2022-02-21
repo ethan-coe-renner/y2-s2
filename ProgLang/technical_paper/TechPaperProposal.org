@@ -1,0 +1,10 @@
+#+title: Technical Paper - Proposal
+#+author: Ethan Coe-Renner
+
+* Objective
+This research willl investigate various methods for achieving memory safety in programming languages. The languages that will be investigated are C, Java, and Rust. 
+
+* Methodology
+The research will motivate this discussion by illustrating the memory unsafety in C, including the kinds of memory errors this can cause. It will then detail the approach that Java uses to address these problems: the automatic garbage collector. Then, some potential problems with this approach will be discussed, and Rust's borrow checker will be presented as another approach which addresses both sets of problems.
+
+

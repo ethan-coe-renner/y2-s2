@@ -1,0 +1,225 @@
+exa(1)                                                                                                                                   exa(1)
+
+NNAAMMEE
+       exa — a modern replacement for ls
+
+SSYYNNOOPPSSIISS
+       exa [options] [files...]
+
+       eexxaa  is  a  modern replacement for ls.  It uses colours for information by default, helping you distinguish between many types of files,
+       such as whether you are the owner, or in the owning group.
+
+       It also has extra features not present in the original ls, such as viewing the Git status for a directory, or recursing into directories
+       with a tree view.
+
+EEXXAAMMPPLLEESS
+       eexxaa    Lists the contents of the current directory in a grid.
+
+       eexxaa ----oonneelliinnee ----rreevveerrssee ----ssoorrtt==ssiizzee
+              Displays a list of files with the largest at the top.
+
+       eexxaa ----lloonngg ----hheeaaddeerr ----iinnooddee ----ggiitt
+              Displays a table of files with a header, showing each file’s metadata, inode, and Git status.
+
+       eexxaa ----lloonngg ----ttrreeee ----lleevveell==33
+              Displays a tree of files, three levels deep, as well as each file’s metadata.
+
+DDIISSPPLLAAYY OOPPTTIIOONNSS
+       --11, ----oonneelliinnee
+              Display one entry per line.
+
+       --FF, ----ccllaassssiiffyy
+              Display file kind indicators next to file names.
+
+       --GG, ----ggrriidd
+              Display entries as a grid (default).
+
+       --ll, ----lloonngg
+              Display extended file metadata as a table.
+
+       --RR, ----rreeccuurrssee
+              Recurse into directories.
+
+       --TT, ----ttrreeee
+              Recurse into directories as a tree.
+
+       --xx, ----aaccrroossss
+              Sort the grid across, rather than downwards.
+
+       ----ccoolloorr, ----ccoolloouurr==WWHHEENN
+              When to use terminal colours.  Valid settings are `always', `automatic', and `never'.
+
+       ----ccoolloorr--ssccaallee, ----ccoolloouurr--ssccaallee
+              Colour file sizes on a scale.
+
+       ----iiccoonnss
+              Display icons next to file names.
+
+       ----nnoo--iiccoonnss
+              Don’t display icons.  (Always overrides –icons)
+
+FFIILLTTEERRIINNGG AANNDD SSOORRTTIINNGG OOPPTTIIOONNSS
+       --aa, ----aallll
+              Show hidden and “dot” files.  Use this twice to also show the `.' and `..'  directories.
+
+       --dd, ----lliisstt--ddiirrss
+              List directories as regular files, rather than recursing and listing their contents.
+
+       --LL, ----lleevveell==DDEEPPTTHH
+              Limit the depth of recursion.
+
+       --rr, ----rreevveerrssee
+              Reverse the sort order.
+
+       --ss, ----ssoorrtt==SSOORRTT__FFIIEELLDD
+              Which field to sort by.
+
+       Valid  sort  fields are `name', `Name', `extension', `Extension', `size', `modified', `changed', `accessed', `created', `inode', `type',
+       and `none'.
+
+       The modified sort field has the aliases `date', `time', and `newest', and its reverse order has the aliases `age' and `oldest'.
+
+       Sort fields starting with a capital letter will sort uppercase before lowercase: `A' then `B' then `a' then `b'.  Fields starting with a
+       lowercase letter will mix them: `A' then `a' then `B' then `b'.
+
+       --II, ----iiggnnoorree--gglloobb==GGLLOOBBSS
+              Glob patterns, pipe-separated, of files to ignore.
+
+       ----ggiitt--iiggnnoorree [if exa was built with git support]
+              Do not list files that are ignored by Git.
+
+       ----ggrroouupp--ddiirreeccttoorriieess--ffiirrsstt
+              List directories before other files.
+
+       --DD, ----oonnllyy--ddiirrss
+              List only directories, not files.
+
+LLOONNGG VVIIEEWW OOPPTTIIOONNSS
+       These options are available when running with --long (-l):
+
+       --bb, ----bbiinnaarryy
+              List file sizes with binary prefixes.
+
+       --BB, ----bbyytteess
+              List file sizes in bytes, without any prefixes.
+
+       ----cchhaannggeedd
+              Use the changed timestamp field.
+
+       --gg, ----ggrroouupp
+              List each file’s group.
+
+       --hh, ----hheeaaddeerr
+              Add a header row to each column.
+
+       --HH, ----lliinnkkss
+              List each file’s number of hard links.
+
+       --ii, ----iinnooddee
+              List each file’s inode number.
+
+       --mm, ----mmooddiiffiieedd
+              Use the modified timestamp field.
+
+       --nn, ----nnuummeerriicc
+              List numeric user and group IDs.
+
+       --SS, ----bblloocckkss
+              List each file’s number of file system blocks.
+
+       --tt, ----ttiimmee==WWOORRDD
+              Which timestamp field to list.  Valid timestamp fields are `modified', `changed', `accessed', and `created'.
+
+       ----ttiimmee--ssttyyllee==SSTTYYLLEE
+              How to format timestamps.  Valid timestamp styles are `default', `iso', `long-iso', and `full-iso'.
+
+       --uu, ----aacccceesssseedd
+              Use the accessed timestamp field.
+
+       --UU, ----ccrreeaatteedd
+              Use the created timestamp field.
+
+       ----nnoo--ppeerrmmiissssiioonnss
+              Suppress the permissions field.
+
+       ----nnoo--ffiilleessiizzee
+              Suppress the file size field.
+
+       ----nnoo--uusseerr
+              Suppress the user field.
+
+       ----nnoo--ttiimmee
+              Suppress the time field.
+
+       --@@, ----eexxtteennddeedd
+              List each file’s extended attributes and sizes.
+
+       ----ggiitt [if exa was built with git support]
+              List each file’s Git status, if tracked.
+
+       This adds a two-character column indicating the staged and unstaged statuses respectively.  The status character can be `-' for not mod‐
+       ified, `M' for a modified file, `N' for a new file, `D' for deleted, `R' for renamed, `T' for type-change, `I' for ignored, and `U'  for
+       conflicted.
+
+       Directories  will be shown to have the status of their contents, which is how `deleted' is possible: if a directory contains a file that
+       has a certain status, it will be shown to have that status.
+
+EENNVVIIRROONNMMEENNTT VVAARRIIAABBLLEESS
+       exa responds to the following environment variables:
+
+   CCOOLLUUMMNNSS
+       Overrides the width of the terminal, in characters.
+
+       For example, `COLUMNS=80 exa' will show a grid view with a maximum width of 80 characters.
+
+       This option won’t do anything when exa’s output doesn’t wrap, such as when using the --long view.
+
+   EEXXAA__SSTTRRIICCTT
+       Enables _s_t_r_i_c_t _m_o_d_e, which will make exa error when two command-line options are incompatible.
+
+       Usually, options can override each other going right-to-left on the command line, so that exa can be given aliases:  creating  an  alias
+       `exa=exa  --sort=ext' then running `exa --sort=size' with that alias will run `exa --sort=ext --sort=size', and the sorting specified by
+       the user will override the sorting specified by the alias.
+
+       In strict mode, the two options will not co-operate, and exa will error.
+
+       This option is intended for use with automated scripts and other situations where you want to be certain you’re typing in the right com‐
+       mand.
+
+   EEXXAA__GGRRIIDD__RROOWWSS
+       Limits the grid-details view (`exa --grid --long') so it’s only activated when at least the given number of rows of output would be gen‐
+       erated.
+
+       With widescreen displays, it’s possible for the grid to look very wide and sparse, on just one or two lines with  none  of  the  columns
+       lining up.  By specifying a minimum number of rows, you can only use the view if it’s going to be worth using.
+
+   EEXXAA__IICCOONN__SSPPAACCIINNGG
+       Specifies the number of spaces to print between an icon (see the `--icons' option) and its file name.
+
+       Different terminals display icons differently, as they usually take up more than one character width on screen, so there’s no “standard”
+       number of spaces that exa can use to separate an icon from text.  One space may place the icon too close to the text, and two spaces may
+       place it too far away.  So the choice is left up to the user to configure depending on their terminal emulator.
+
+   LLSS__CCOOLLOORRSS, EXA_COLORS
+       Specifies the colour scheme used to highlight files based on their name and kind, as well as highlighting metadata and parts of the UI.
+
+       For more information on the format of these environment variables, see the exa_colors(5) manual page.
+
+EEXXIITT SSTTAATTUUSSEESS
+       0      If everything goes OK.
+
+       1      If there was an I/O error during operation.
+
+       3      If there was a problem with the command-line arguments.
+
+AAUUTTHHOORR
+       exa is maintained by Benjamin `ogham' Sago and many other contributors.
+
+       WWeebbssiittee:: https://the.exa.website/
+       SSoouurrccee ccooddee:: https://github.com/ogham/exa
+       CCoonnttrriibbuuttoorrss:: https://github.com/ogham/exa/graphs/contributors
+
+SSEEEE AALLSSOO
+       • exa_colors(5)
+
+v0.9.0                                                                                                                                   exa(1)

@@ -1,0 +1,8 @@
+#+title: Simple Shell
+#+author: Ethan Coe-Renner
+
+* Instructions
+To compile this project, run ~gcc simple-shell.c~, then run the resulting binary with ~./a.out~.
+
+* Screenshot
+[[./screenshot.png]]

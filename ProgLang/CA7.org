@@ -1,0 +1,56 @@
+#+title: Context Free Grammers
+#+author: Ethan Coe-Renner
+
+* CFGs
+1. 
+    #+begin_src text
+    expr ::= expr + expr | expr ∗ expr | (expr ) | number
+    number ::= [0-9]+
+    #+end_src
+2. 
+    #+begin_src text
+      expr ::= expr + expr | expr ∗ expr | (expr ) | number
+      number ::= [0-9]+
+      id ::= (_|[a-z])([0-9]|[a-z]|_)*
+      assignment ::= id = expr
+    #+end_src
+
+* Derivations
+1. 1 @ 1 # 1 -> factor @ factor # factor -> term # factor -> expr # term -> expr
+#+begin_src text
+  1 @ 1 # 1
+  factor @ 1 # 1
+  factor @ factor # 1
+  factor @ factor # factor
+  factor @ term # factor
+  term # factor
+  expr # term
+  expr
+#+end_src
+2. 0 @ 0 @ 0 -> factor @ factor @ factor -> factor @ term -> term -> expr
+   #+begin_src text
+     0 @ 0 @ 0
+     factor @ 0 @ 0
+     factor @ factor @ 0
+     factor @ factor @ factor
+     factor @ factor @ term
+     factor @ term
+     term
+     expr
+   #+end_src
+3. 0 @ (0 # 1) -> factor @ (factor # factor) -> factor @ (term # factor) -> factor @ (expr # term) -> factor @ (expr) -> factor @ factor -> factor @ term -> term -> expr
+   #+begin_src text
+     0 @ (0 # 1)
+     factor @ (0 # 1)
+     factor @ (factor # 1)
+     factor @ (factor # factor)
+     factor @ (term # factor)
+     factor @ (expr # term)
+     factor @ (expr)
+     factor @ factor
+     factor @ term
+     term
+     expr
+   #+end_src
+
+

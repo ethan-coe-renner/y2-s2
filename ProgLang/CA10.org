@@ -1,0 +1,99 @@
+#+title: CA10
+#+author: Ethan Coe-Renner
+
+* Recursive-descent parser
+
+1. 
+    #+begin_src text
+      PTNode* parseExpr()
+      {
+      PTNode * tree = parseTerm();
+      while(next_token is '+')
+          {
+          consume_token();
+          tree = new PTInteriorNode('+', tree, parseTerm());
+          }
+      return tree;
+      }
+      
+      PTNode* parseTerm()
+      {
+      PTNode * tree = parseFactor();
+      while(next_token is '*')
+          {
+          consume_token();
+          tree = new PTInteriorNode('*', tree, parseFactor());
+          }
+      return tree;
+      
+      }
+      
+      PTNode* parseFactor()
+      {
+      if (next_token is '(')
+          {
+          consume_token();
+          PTNode * tree = parseExpr();
+          if (!(next_token is ')') throw exception
+          consume_token()
+          }
+      else PTNode* tree = parseNumber();
+      return tree
+      }
+      
+      PTNode* parseNumber()
+      {
+      if (!(next_token is NUMBER)) throw exception
+      double n = next_token;
+      consume_token();
+      return new PTLeafNode(n);
+      }
+    #+end_src
+
+2. 
+
+    #+begin_src text
+      PTNode* parseExpr()
+      {
+      PTNode * tree = parseTerm();
+      if(next_token is '+')
+          {
+          consume_token();
+          tree = new PTInteriorNode('+', tree, parseTerm());
+          }
+      return tree;
+      }
+      
+      PTNode* parseTerm()
+      {
+      PTNode * tree = parseFactor();
+      if(next_token is '*')
+          {
+          consume_token();
+          tree = new PTInteriorNode('*', tree, parseFactor());
+          }
+      return tree;
+      
+      }
+      
+      PTNode* parseFactor()
+      {
+      if (next_token is '(')
+          {
+          consume_token();
+          PTNode * tree = parseExpr();
+          if (!(next_token is ')') throw exception
+          consume_token()
+          }
+      else PTNode* tree = parseNumber();
+      return tree
+      }
+      
+      PTNode* parseNumber()
+      {
+      if (!(next_token is NUMBER)) throw exception
+      double n = next_token;
+      consume_token();
+      return new PTLeafNode(n);
+      }
+    #+end_src

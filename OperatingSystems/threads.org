@@ -1,0 +1,30 @@
+#+title: Threads
+#+author: Ethan Coe-Renner
+
+* Motivation
+
+threads run within an application
+
+multiple tasks can be implemented by seperate threads
+
+process creation is heavy-weight, while thread creation is light-weight.
+
+a process can contain multiple threads, they share the same address space
+seperate registers and stack
+
+** benefits
+- responsiveness
+- resource sharing
+- economy
+- scarcity
+
+servers use threads to service each request
+
+three primary user thread libraries: pthreads, win threads, java threads
+
+* multithreading models
+** many to one
+many user level threads mapped to a single kernal thread
+
+multiple threads are unable to run in parallel on multiprocessors.
+

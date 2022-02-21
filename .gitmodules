@@ -1,0 +1,3 @@
+[submodule "ProgLang/course_project"]
+	path = ProgLang/course_project
+	url = git@github.com:ethan-coe-renner/programming-languages-course-project.git

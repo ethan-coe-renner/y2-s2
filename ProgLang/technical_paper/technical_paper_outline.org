@@ -1,0 +1,23 @@
+#+title: COMP 141 Technical Paper Outline
+#+author: Ethan Coe-Renner
+
+* Memory
+This section will discuss memory in general, including memory regions and their different uses.
+* Manual Memory Management
+This section will detail manual memory management, detailing static vs dynamic memory management, and some of the problems that can arise when this is done improperly
+** Memory Leaks
+This subsection will focus on memory leaks as a problem with improper memory management, including highlighting c code which causes memory leaks.
+** Segmentation Faults
+This section will do the same for segmentation faults.
+* Garbage Collection
+This section will discuss garbage collection as a solution to the problems illustrated in the previous subsections, including demonstrating code in java which solves the problems demonstrated earlier.
+** Drawbacks
+This subsection will outline some of the drawbacks to garbage collection, primarily focusing on run-time resource usage that the garbage collector requires. An example will be provided to compare efficiency.
+* Static Program Analysis
+This section will discuss static program analysis as a solution to both the memory safety problem and the run-time inefficiencies of garbage collection.
+** Rust
+Rust will be presented as an implementation of this approach, and it will be demonstrated how rust solves the problems detailed earlier.
+
+
+bibliography:apacite
+bibliography:bibliography.bib
