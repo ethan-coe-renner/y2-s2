@@ -1,0 +1,156 @@
+#+title: COMP 141 Technical Paper
+#+subtitle: Memory Management Techniques
+#+author: Ethan Coe-Renner
+
+* Introduction
+When running programs, computers often need to store data for use later. This is done through memory. The use of memory can lead to many problems, which various languages deal with differently. C allows the programmer to handle memory manually, enabling maximal control with some downsides. Java addresses these downsides with the JVM, while introducing downsides of its own. Rust attempts to solve both these problems through static program analysis.
+
+* Memory
+Memory is physically stored in a number of different places on the computer. These are not necessarily always on the DRAM of the computer. Which region a value is stored in has a large impact on how a program will behave. Some of the important regions for this discussion are the stack, the heap, and static memory.
+** The Stack
+The stack is a linear LIFO structure of memory, which, on standard architecture, grows downwards towards address 0. When a function is called in many programming languages, a "stack frame" is pushed to the top of the stack with values associated with that function call, such as arguments and the return address. Stack frames are deallocated automatically when a function returns, eliminating the need to manually free memory in stacks.
+** The Heap
+The heap is a segment of memory where dynamic memory allocation takes place. It is a pool of memory, not organized linearly like the stack. In the heap, values are not deallocated at the end of any function, and therefore must be deallocated explicitly in manually managed languages, or through some other technique. 
+** Static Memory
+Static memory is a general term for memory regions which exist throughout the runtime of the program. This includes the binary executable of the program itself, including any strings hardcoded into the source code. It is mapped as read-only, to prevent the execution of the program from changing its own instructions.
+* Manual Memory Management
+In languages which require manual memory management, the programmer must explicitly allocate and free memory regions in the heap. In C, for example, this is done using ~malloc~ and ~free~. This gives the programmer a significant amount of control over the way in which memory is used. However, misuse of these functions can cause serious problems.
+
+** Memory Leaks
+One problem which can occur are memory leaks. A memory leak occurs when memory which is no longer needed is not freed. This has a number of potential consequences. In the short term, memory leaks will reduce the amount of available memory.
+This will degrade the performance of the computer, eventually resulting in all of the available memory being leaked. See Figure [[c:memleak]] for an example of code causing a memory leak.
+Memory leaks are typically not serious in programs which run for a short time, however they can become more serious in embedded devices with very little memory and long up-times, programs with frequent one time memory allocations, and in operating systems.
+
+#+caption: Memory Leak in C
+#+label: c:memleak
+#+begin_src c
+  // lang = c
+  #include <stdlib.h>
+  #include <stdio.h>
+  
+  int main() {
+    int *b = malloc(sizeof(int)); // (a) dynamically allocate memory for b
+  
+    ,*b = 3;
+  
+    printf("%d\n", *b); // prints 3
+    return 0; // (b) return without deallocating memory allocated in (a)
+  }
+#+end_src
+
+** Access Errors
+Another problem which can result from memory mismanagement are access errors. This can result in languages which allow pointer arithmetic and don't check bounds, such as in arrays as demonstrated in Figure [[c:segfault]]. Sometimes these cause segmentation faults, and are generally caused by invalid reading or writing of pointers. This can be caused when memory which is unallocated is accessed. Other times, the language will actually access memory stored after the array being accessed, which causes undefined behavior. 
+
+#+caption: Access Error in C
+#+label: c:segfault
+#+begin_src c
+  // lang = c
+  #include <stdlib.h>
+  #include <stdio.h>
+  
+  
+  int main() {
+    int len = 4;
+    int* arr = calloc(sizeof(int), len); // a) allocates 2 bytes * len in memory
+  
+    for (int i = 0; i< len; i++) {
+      arr[i] = i; // b) fill array with integers
+    }
+  
+    int b = arr[len+1]; // c) accesses memory at location arr + len + 1,
+    // which was not allocated at a)
+  
+    printf("%d", b);
+  
+    free(arr);
+  
+    return 0;
+  }
+#+end_src
+
+* Garbage Collection
+In Java, heap memory management is done automatically by the garbage collector. Memory is allocated in the heap using the ~new~ keyword or with arrays. The garbage collector is a seperate process which runs with the java executable and deallocates memory of unused objects. The garbage collector does this by checking the number of pointers to an object which still exist. When there are no more pointers to an object, it is safe to reclaim the memory occupied by that object and it is eligible for garbage collection. An example of code which triggers this behavior is in Figure [[java:nonleak]].
+
+#+caption: Non-Leaking Java Code
+#+label: java:nonleak
+#+begin_src java
+  // lang = java
+  Integer i = new Integer(4);
+  // integer object is created by the "new" keyword, and has a reference "i"
+  
+  System.out.println(i);
+  
+  i = null;
+  /* Reference to Integer object is destroyed,
+     thereby reducing its number of references to 0.
+     The Integer object is now eligible for garbage collection. */
+#+end_src
+
+Java also has mechanisms for avoiding access errors. For example, when attempting to access array elements which are beyond the allocated length, Java will throuw an ~ArrayIndexOutOfBoundsException~ and give the line number which threw it. Compared to the largely unhelpful ~Segmentation Fault~ or undefined behavior that C would exhibit, this is a much more descriptive error which leads to faster debug times. An example of a snippet of code which would throw this error is shown in Figure [[java:boundscheck]].
+
+#+caption: Bounds Checking in Java
+#+label: java:boundscheck
+#+begin_src java
+  // lang = java
+  int[] intArray = new int[1]; // (a) allocates memory for an int
+  // array of length 1
+  intArray[0] = 5;
+  System.out.println(intArray[1]);
+  /* accessing unallocated memory,
+     throws ArrayIndexOutOfBoundsException on line 7 instead of
+     unhelpful Segmentation fault */
+#+end_src
+
+Despite all the benefits that Java's memory management system has in eliminating many memory errors, it has some drawbacks. A key drawback is that the garbage collector is a seperate process which must run whenever a java program runs. When garbage collection must occur, the main java thread(s) must pause until the garbage collection is complete. This was more common in older garbage collectors which didn't perform incremental garbage collcetion, but there will necessarily be some pauses while garbage collection occurs.
+
+* Static Program Analysis and Rust
+Static program analysis refers to the analysis of software without executing them. In this context, it refers to compile time checking of memory errors. Rust uses static program analysis to make some memory safety guarantees without any runtime overhead. The core of this process is ownership.
+** Ownership
+In Rust, every value has exactly one variable which "owns" it. When that variable goes out of scope, the value is dropped. Values can be moved, whereby their owner will change to a new variable. For example, given a ~String: s1~, ~let s2: String = s1~, will move a ~String~ owned by ~s1~ to ~s2~, such that now ~s2~ owns the underlying ~String~ on the heap. The original ~s1~ will no longer be valid, this way the underlying memory can be deallocated when ~s2~ goes out of scope, regardless of what happens with ~s1~. This prevents double free errors (Padron-McCarthy, 2008). The ~String~ object can be used to dynamically allocate memory on the heap, and this dropping property is demonstrated in Figure [[rust:dynalloc]].
+
+#+caption: Dynamic Memory Allocation and Moving with String
+#+label: rust:dynalloc
+#+begin_src rust
+  // lang = rust
+  fn main() {
+      let s1;
+      {
+          let s = String::from("hello"); // (a) s is valid from this point forward
+  
+          s.push(" world"); // the string s owns now reads "hello world"
+  
+          s1 = s; // the string s owns is moved to s1, making s1 the new owner
+      } /* this scope is now over, and s is no longer valid,
+        however, this will not deallocate the String created at (a), as
+        that string is now owned by s1 */
+  } // s1 goes out of scope here, and the memory is now deallocated
+#+end_src
+
+Functions will take ownership from outer scopes, such that running a function ~f~ on the aforementioned ~s~ will cause a move and thus ~s~ will no longer be valid. If the ~String~ is not returned from ~f~, it will be deallocated at the end of ~f~. This is shown in Figure [[rust:functionmove]].
+
+#+label: rust:functionmove
+#+begin_src rust
+  // lang = rust
+  fn main() {
+      let s = String::from("hello"); // (a) s is valid from this point forward
+  
+      f(s); // the String owned by s is moved to f, s is no longer valid
+  
+  
+      println!("{}", s); // This line will cause an error as s is no longer valid
+  }
+  
+  fn f(string: String) {
+      println!("{}", string);
+  } // String owned by string is dropped here
+#+end_src
+
+
+* References
+Gjengset, Jon (2022). /Rust for Rustaceans./ no starch press.
+
+Kernighan, Brian W. & Ritchie, Dennis M. (1988). /The C Programming Language./ Prentice-Hall
+
+Klabnik, Steve and Nichols, Carol (2022) /The Rust Programming Language./ no starch press
+
+Padron-McCarthy, Thomas (2008) /The Very Basics of Garbage Collection./ http://basen.oru.se/kurser/koi/2008-2009-p1/texter/gc/index.html
