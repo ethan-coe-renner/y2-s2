@@ -1,0 +1,105 @@
+#+title: Technical Presentation
+#+subtitle: Memory Management Approaches
+#+author: Ethan Coe-Renner
+
+* Memory Regions
+- Memory is physically stored in a number of different places on the computer.
+- Stack: Linear LIFO structure of memory, stack frames are created when on function calls.
+- Heap: Segment of memory where dynamic memory allocation takes place. Values are not deallocated automatically at the end of a function. 
+- Static Memory: Memory regions which exist throughout the runtime of the program. Examples of data stored here are hardcoded strings and the binary executable of the program.
+
+* Manual Memory Management
+- The programmer is required to explicitly allocate and free memory regions in the heap.
+- C uses ~malloc~ and ~free~ to do so
+- Misuse of these functions can cause memory leaks or access errors
+
+* Memory Leaks
+- A memory leak occurs when memory which is no longer needed is not freed.
+- In the short term, this will reduce the amount of available memory; however in the long term, this can result in all of the available memory being leaked and the computer crashing.
+* Example
+#+caption: Memory Leak in C
+#+label: c:memleak
+#+begin_src c
+  // lang = c
+  #include <stdlib.h>
+  #include <stdio.h>
+  
+  int main() {
+    // (a) dynamically allocate memory for b
+    int *b = malloc(sizeof(int)); 
+  
+    *b = 3;
+  
+    printf("%d\n", *b); // prints 3
+    return 0; 
+    /* (b) return without deallocating memory 
+       allocated in (a)
+     ,*/
+  }
+#+end_src
+
+* Garbage Collection
+- Languages like Java use garbage collection to do automatic heap memory management.
+- Garbage collectors work by checking the number of pointers to an object which still exist, when this number is zero, it is safe to reclaim the memory.
+
+* Example
+#+caption: Non-Leaking Java Code
+#+label: java:nonleak
+#+begin_src java
+  // lang = java
+  Integer i = new Integer(4);
+  /* Integer object is created by the "new" keyword,
+     and has a reference "i"
+  ,*/
+  
+  System.out.println(i);
+  
+  i = null;
+  /* Reference to Integer object is destroyed,
+     thereby reducing its number of references to 0.
+     The Integer object is now eligible for GC. */
+#+end_src
+* Drawbacks to GC
+- The GC is a separate process which uses resources, most notably time.
+- Programs for which performance is a top priority will go through GC pauses while the GC cleans up unused memory.
+* Static Program Analysis and Rust
+- Rust solves this problem with static program analysis.
+- Rust is able to, at compile time, make some memory safety guarantees, without runtime overhead.
+- The key part of this process is Ownership
+* Ownership
+- In Rust, every value is owned by exactly one variable.
+- When the owner of a value goes out of scope, the value it owns is dropped (deallocated).
+- Rust code can take references to values through owners, but those references must live (be accessible) for less time than the owner. 
+- Thus, Rust prevents accidental memory leaks by automatically deallocating memory.
+  
+* Rust Example
+#+caption: Dynamic Memory Allocation and Moving with String
+#+label: rust:dynalloc
+#+begin_src rust
+  // lang = rust
+  fn main() {
+      let s1; // s1 in main() scope
+      {
+          let s = String::from("hello");
+          // (a) s is valid from this point forward
+          s.push(" world");
+          // the string s owns now reads "hello world"
+          s1 = s;
+          /* the string s owns is moved to s1
+          making s1 the new owner */
+      } /* this scope is now over,
+        and s is no longer valid,
+        string still exists*/
+  } /* s1 goes out of scope here,
+    and the memory is now dropped */
+#+end_src
+
+
+* References
+Gjengset, Jon (2022). /Rust for Rustaceans./ no starch press.
+
+Kernighan, Brian W. & Ritchie, Dennis M. (1988). /The C Programming Language./ Prentice-Hall
+
+Klabnik, Steve and Nichols, Carol (2022) /The Rust Programming Language./ no starch press
+
+Padron-McCarthy, Thomas (2008) /The Very Basics of Garbage Collection./ http://basen.oru.se/kurser/koi/2008-2009-p1/texter/gc/index.html
